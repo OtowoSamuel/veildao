@@ -1,0 +1,21 @@
+{
+  "name": "veildao",
+  "version": "0.1.0",
+  "description": "Encrypted DAO Treasury Management powered by Fhenix CoFHE",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.ts"
+  },
+  "keywords": ["fhenix", "fhe", "dao", "treasury", "privacy", "cofhe"],
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0",
+    "typescript": "^5.4.0",
+    "ts-node": "^10.9.0"
+  },
+  "dependencies": {
+    "@fhenixprotocol/cofhe-contracts": "^0.1.0"
+  }
+}

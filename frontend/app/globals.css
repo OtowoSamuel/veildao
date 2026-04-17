@@ -143,14 +143,16 @@ a {
 }
 
 .btn-primary {
-  background: #E4E4E7;
-  color: #000000;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
   box-shadow: none;
 }
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  background: var(--text-secondary);
+  background: var(--bg-card-hover);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .btn-secondary {

@@ -27,6 +27,10 @@ export default function Navbar() {
                         </svg>
                     </div>
                     <span>VeilDAO</span>
+                    <div className="fhe-ticker">
+                        <div className="fhe-ticker-dot"></div>
+                        FHE_NODE_STATUS: ACTIVE
+                    </div>
                     <span className="fhe-indicator">
                         <span className="fhe-lock"><ShieldCheck size={14} /></span> FHE Encrypted
                     </span>

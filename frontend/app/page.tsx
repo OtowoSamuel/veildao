@@ -30,6 +30,17 @@ export default function DashboardPage() {
                     hidden spending, and governor-controlled access — powered by Fully
                     Homomorphic Encryption.
                 </p>
+                <div className="arch-flow" style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    gap: '1rem', marginTop: '1.5rem', marginBottom: '2.5rem',
+                    fontFamily: 'monospace', fontSize: '0.85rem', color: 'var(--text-secondary)'
+                }}>
+                    <div style={{ padding: '0.5rem 1rem', background: 'rgba(255,255,255,0.05)', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.1)' }}>Plaintext Request</div>
+                    <div style={{ color: 'var(--accent-bright)' }}>→</div>
+                    <div style={{ padding: '0.5rem 1rem', background: 'rgba(108, 92, 231, 0.1)', borderRadius: '6px', border: '1px solid var(--accent-main)', color: 'var(--accent-bright)' }}>CoFHE Network</div>
+                    <div style={{ color: 'var(--accent-bright)' }}>→</div>
+                    <div style={{ padding: '0.5rem 1rem', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '6px', border: '1px solid rgba(16, 185, 129, 0.3)', color: '#10B981' }}>Encrypted Vault</div>
+                </div>
                 <button className="btn btn-primary" onClick={connect} style={{ fontSize: "1rem", padding: "14px 32px" }}>
                     Connect Wallet to Start
                 </button>

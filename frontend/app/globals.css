@@ -91,8 +91,9 @@ a {
 .nav-logo-icon {
   width: 32px;
   height: 32px;
-  background: var(--text-primary);
-  color: var(--bg-primary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -142,8 +143,8 @@ a {
 }
 
 .btn-primary {
-  background: var(--text-primary);
-  color: var(--bg-primary);
+  background: #E4E4E7;
+  color: #000000;
   box-shadow: none;
 }
 
@@ -637,8 +638,9 @@ tr:hover td {
 .connect-icon {
   width: 80px;
   height: 80px;
-  background: var(--text-primary);
-  color: var(--bg-primary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
   border-radius: 20px;
   display: flex;
   align-items: center;

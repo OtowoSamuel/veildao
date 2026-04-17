@@ -1,8 +1,8 @@
 "use client";
 
 import { useWallet } from "@/lib/wallet";
-import { CATEGORY_NAMES, CATEGORY_COLORS } from "@/lib/contract";
-import { Lock, Coins, ClipboardList, Users, Cpu, ShieldCheck, Activity, CheckCircle, Zap, Megaphone, Settings, Microscope, Handshake, Network, Scale, CheckSquare } from "lucide-react";
+import { CATEGORY_NAMES, CATEGORY_COLORS, CONTRACT_ADDRESS } from "@/lib/contract";
+import { Lock, Coins, ClipboardList, Users, Cpu, ShieldCheck, Activity, CheckCircle, Zap, Megaphone, Settings, Microscope, Handshake, Network, Scale, CheckSquare, ExternalLink } from "lucide-react";
 
 const BUDGET_ICONS = [
     <Zap key="1" size={20} />,
@@ -17,42 +17,58 @@ export default function DashboardPage() {
 
     if (!isConnected) {
         return (
-            <div className="connect-screen">
-                <div className="connect-icon">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div className="hero-wrapper">
+                {/* Visual Depth Layers */}
+                <div className="hero-bg"></div>
+                <div className="hero-glow"></div>
+
+                {/* Main Hero Header */}
+                <div className="connect-icon" style={{ marginBottom: "1.5rem", width: "56px", height: "56px", borderRadius: "14px" }}>
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 21L3 5H8.5L12 13L15.5 5H21L12 21Z" fill="white" />
-                        <path d="M12 15L7.5 5H16.5L12 15Z" fill="rgba(255,255,255,0.5)" />
+                        <path d="M12 15L7.5 5H16.5L12 15Z" fill="rgba(255,255,255,0.4)" />
                     </svg>
                 </div>
-                <h1 className="connect-title">Welcome to VeilDAO</h1>
-                <p className="connect-desc">
-                    The first privacy-preserving DAO treasury protocol. Encrypted budgets,
-                    hidden spending, and governor-controlled access — powered by Fully
-                    Homomorphic Encryption.
+                <h1 className="page-title" style={{ fontSize: "3rem", marginBottom: "1rem" }}>VeilDAO Protocol</h1>
+                <p className="connect-desc" style={{ maxWidth: "600px", fontSize: "1.1rem", marginBottom: "2rem" }}>
+                    The world's first privacy-preserving DAO treasury completely powered by
+                    Fully Homomorphic Encryption mathematics. Budgets remain encrypted. Spending remains hidden.
                 </p>
+
+                {/* Architecture Flow Diagram */}
                 <div className="arch-flow" style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    gap: '1rem', marginTop: '1.5rem', marginBottom: '2.5rem',
-                    fontFamily: 'monospace', fontSize: '0.85rem', color: 'var(--text-secondary)'
+                    gap: '1rem', marginBottom: '3rem',
+                    fontFamily: 'monospace', fontSize: '0.85rem', color: 'var(--text-secondary)',
+                    flexWrap: 'wrap'
                 }}>
-                    <div style={{ padding: '0.5rem 1rem', background: 'rgba(255,255,255,0.05)', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.1)' }}>Plaintext Request</div>
-                    <div style={{ color: 'rgba(255,255,255,0.3)' }}>→</div>
-                    <div style={{ padding: '0.5rem 1rem', background: 'rgba(255,255,255,0.05)', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.2)', color: 'var(--text-primary)' }}>CoFHE Network</div>
-                    <div style={{ color: 'rgba(255,255,255,0.3)' }}>→</div>
-                    <div style={{ padding: '0.5rem 1rem', background: 'rgba(255,255,255,0.05)', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.1)' }}>Encrypted Vault</div>
+                    <div style={{ padding: '0.6rem 1.2rem', background: 'rgba(255,255,255,0.03)', borderRadius: '8px', border: '1px dashed rgba(255,255,255,0.2)' }}>On-Chain Request</div>
+                    <div style={{ color: 'rgba(255,255,255,0.2)' }}>⟶</div>
+                    <div style={{ padding: '0.6rem 1.2rem', background: 'rgba(255,255,255,0.08)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.3)', color: 'white', fontWeight: 600 }}>CoFHE Math Gate</div>
+                    <div style={{ color: 'rgba(255,255,255,0.2)' }}>⟶</div>
+                    <div style={{ padding: '0.6rem 1.2rem', background: 'rgba(255,255,255,0.03)', borderRadius: '8px', border: '1px dashed rgba(255,255,255,0.2)' }}><Lock size={12} style={{ display: 'inline', marginBottom: '-2px' }} /> Encrypted Vault</div>
                 </div>
-                <button className="btn btn-primary" onClick={connect} style={{ fontSize: "1rem", padding: "14px 32px" }}>
-                    Connect Wallet to Start
+
+                <button className="btn btn-primary" onClick={connect} style={{ fontSize: "1.1rem", padding: "16px 40px", borderRadius: "100px" }}>
+                    Connect Wallet to Authenticate
                 </button>
-                <div style={{ marginTop: "2rem", display: "flex", gap: "2rem" }}>
-                    <div className="fhe-indicator">
-                        <span className="fhe-lock"><ShieldCheck size={16} /></span> Fhenix CoFHE
+
+                {/* Bento Grid Features */}
+                <div className="bento-grid">
+                    <div className="bento-item">
+                        <div className="bento-icon"><ShieldCheck size={20} /></div>
+                        <div className="bento-title">Fhenix Encryption</div>
+                        <div className="bento-desc">We mathematically encrypt every budget using the state-of-the-art Fhenix CoFHE libraries, shielding funds from competitors.</div>
                     </div>
-                    <div className="fhe-indicator">
-                        <span className="fhe-lock"><Network size={16} /></span> Arbitrum Sepolia
+                    <div className="bento-item">
+                        <div className="bento-icon"><Cpu size={20} /></div>
+                        <div className="bento-title">Smart Conditionals</div>
+                        <div className="bento-desc">Smart contracts execute mathematical comparisons directly against encrypted data via FHE.lte() without ever exposing the numbers.</div>
                     </div>
-                    <div className="fhe-indicator">
-                        <span className="fhe-lock"><ShieldCheck size={16} /></span> Privacy by Design
+                    <div className="bento-item">
+                        <div className="bento-icon"><Network size={20} /></div>
+                        <div className="bento-title">Arbitrum Sepolia</div>
+                        <div className="bento-desc">Deployed seamlessly across L2 architectures for ultra-fast transactions while maintaining absolute multi-party privacy.</div>
                     </div>
                 </div>
             </div>
@@ -66,6 +82,17 @@ export default function DashboardPage() {
                 <p className="page-subtitle">
                     Encrypted treasury overview • {isGovernor ? "Governor Access" : "Public View"}
                 </p>
+                <div style={{ marginTop: "1rem" }}>
+                    <a
+                        href={`https://sepolia.arbiscan.io/address/${CONTRACT_ADDRESS}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="badge"
+                        style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", padding: "6px 12px", borderRadius: "100px", color: "var(--text-secondary)", transition: "all 0.2s" }}
+                    >
+                        <ExternalLink size={14} /> View Verified Smart Contract
+                    </a>
+                </div>
             </div>
 
             {/* Stats */}

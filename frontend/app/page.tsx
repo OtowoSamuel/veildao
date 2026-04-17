@@ -20,6 +20,14 @@ export default function DashboardPage() {
             <div className="hero-wrapper">
                 {/* Visual Depth Layers */}
                 <div className="hero-bg"></div>
+                <div className="hero-stars"></div>
+                <div className="hero-shooting-layer" aria-hidden="true">
+                    <span className="hero-comet"></span>
+                    <span className="hero-shooting-star star-1"></span>
+                    <span className="hero-shooting-star star-2"></span>
+                    <span className="hero-shooting-star star-3"></span>
+                    <span className="hero-shooting-star star-4"></span>
+                </div>
                 <div className="hero-glow"></div>
 
                 {/* Main Hero Header */}

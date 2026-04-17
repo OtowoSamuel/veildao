@@ -43,9 +43,12 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
     const checkGovernorStatus = useCallback(async (contract: ethers.Contract, address: string) => {
         try {
+            console.log("🔍 Checking governor status for:", address, "on contract:", await contract.getAddress());
             const isGov = await contract.isGovernor(address);
+            console.log("✅ isGovernor map returned:", isGov);
             setIsGovernor(isGov);
-        } catch {
+        } catch (error) {
+            console.error("❌ CRITICAL ERROR in checkGovernorStatus:", error);
             setIsGovernor(false);
         }
     }, []);

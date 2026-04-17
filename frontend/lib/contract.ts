@@ -54,11 +54,11 @@ export const CATEGORY_NAMES = [
 export const CATEGORY_ICONS = ["⚡", "📢", "⚙️", "🔬", "🤝"] as const;
 
 export const CATEGORY_COLORS = [
-    "#6366f1", // indigo
-    "#f59e0b", // amber
-    "#10b981", // emerald
-    "#8b5cf6", // violet
-    "#ec4899", // pink
+    "#E4E4E7", // zinc-200
+    "#D4D4D8", // zinc-300
+    "#A1A1AA", // zinc-400
+    "#71717A", // zinc-500
+    "#52525B", // zinc-600
 ] as const;
 
 export const PROPOSAL_STATUS = ["Pending", "Approved", "Rejected", "Executed"] as const;

@@ -18,7 +18,12 @@ export default function DashboardPage() {
     if (!isConnected) {
         return (
             <div className="connect-screen">
-                <div className="connect-icon"><Lock size={48} /></div>
+                <div className="connect-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 21L3 5H8.5L12 13L15.5 5H21L12 21Z" fill="white" />
+                        <path d="M12 15L7.5 5H16.5L12 15Z" fill="rgba(255,255,255,0.5)" />
+                    </svg>
+                </div>
                 <h1 className="connect-title">Welcome to VeilDAO</h1>
                 <p className="connect-desc">
                     The first privacy-preserving DAO treasury protocol. Encrypted budgets,

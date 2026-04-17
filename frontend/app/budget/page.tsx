@@ -45,7 +45,7 @@ export default function BudgetPage() {
     if (!isConnected) {
         return (
             <div className="connect-screen">
-                <div className="connect-icon" style={{ display: 'flex', justifyContent: 'center' }}><BarChart2 size={48} color="var(--primary-light)" /></div>
+                <div className="connect-icon" style={{ display: 'flex', justifyContent: 'center' }}><BarChart2 size={48} color="white" /></div>
                 <h1 className="connect-title">Budget Management</h1>
                 <p className="connect-desc">Connect your wallet to view and manage encrypted budgets.</p>
                 <button className="btn btn-primary" onClick={connect}>Connect Wallet</button>

@@ -101,7 +101,7 @@ export default function ProposalsPage() {
     if (!isConnected) {
         return (
             <div className="connect-screen">
-                <div className="connect-icon" style={{ display: 'flex', justifyContent: 'center' }}><Vote size={48} color="var(--primary-light)" /></div>
+                <div className="connect-icon" style={{ display: 'flex', justifyContent: 'center' }}><Vote size={48} color="white" /></div>
                 <h1 className="connect-title">Proposals</h1>
                 <p className="connect-desc">Connect your wallet to view and create spend proposals.</p>
                 <button className="btn btn-primary" onClick={connect}>Connect Wallet</button>

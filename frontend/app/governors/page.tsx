@@ -33,7 +33,7 @@ export default function GovernorsPage() {
     if (!isConnected) {
         return (
             <div className="connect-screen">
-                <div className="connect-icon" style={{ display: 'flex', justifyContent: 'center' }}><Users size={48} color="var(--primary-light)" /></div>
+                <div className="connect-icon" style={{ display: 'flex', justifyContent: 'center' }}><Users size={48} color="white" /></div>
                 <h1 className="connect-title">Governor Management</h1>
                 <p className="connect-desc">Connect your wallet to view and manage DAO governors.</p>
                 <button className="btn btn-primary" onClick={connect}>Connect Wallet</button>

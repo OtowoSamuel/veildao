@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import hre from "hardhat";
+import { Encryptable } from "@cofhe/sdk";
 
 describe("VeilDAO", function () {
     let veildao: any;
@@ -93,7 +94,7 @@ describe("VeilDAO", function () {
         it("should allow governor to allocate budget to a category", async function () {
             // Create an encrypted amount using the mock system
             const client = await hre.cofhe.createClientWithBatteries(governor1);
-            const encrypted = await client.encryptInputs([{ type: "uint32", value: 10000n }]).execute();
+            const encrypted = await client.encryptInputs([Encryptable.uint32(10000n)]).execute();
 
             await veildao.connect(governor1).allocateBudget(0, encrypted[0]);
             expect(await veildao.categoryExists(0)).to.be.true;
@@ -101,7 +102,7 @@ describe("VeilDAO", function () {
 
         it("should reject non-governor budget allocation", async function () {
             const client = await hre.cofhe.createClientWithBatteries(nonGovernor);
-            const encrypted = await client.encryptInputs([{ type: "uint32", value: 5000n }]).execute();
+            const encrypted = await client.encryptInputs([Encryptable.uint32(5000n)]).execute();
 
             await expect(
                 veildao.connect(nonGovernor).allocateBudget(0, encrypted[0])
@@ -110,7 +111,7 @@ describe("VeilDAO", function () {
 
         it("should reject invalid category", async function () {
             const client = await hre.cofhe.createClientWithBatteries(governor1);
-            const encrypted = await client.encryptInputs([{ type: "uint32", value: 5000n }]).execute();
+            const encrypted = await client.encryptInputs([Encryptable.uint32(5000n)]).execute();
 
             await expect(
                 veildao.connect(governor1).allocateBudget(5, encrypted[0])
@@ -122,13 +123,13 @@ describe("VeilDAO", function () {
         beforeEach(async function () {
             // Allocate budget to Development category
             const client = await hre.cofhe.createClientWithBatteries(governor1);
-            const budgetEncrypted = await client.encryptInputs([{ type: "uint32", value: 50000n }]).execute();
+            const budgetEncrypted = await client.encryptInputs([Encryptable.uint32(50000n)]).execute();
             await veildao.connect(governor1).allocateBudget(0, budgetEncrypted[0]);
         });
 
         it("should allow anyone to create a spend proposal", async function () {
             const client = await hre.cofhe.createClientWithBatteries(nonGovernor);
-            const spendEncrypted = await client.encryptInputs([{ type: "uint32", value: 5000n }]).execute();
+            const spendEncrypted = await client.encryptInputs([Encryptable.uint32(5000n)]).execute();
 
             await veildao.connect(nonGovernor).proposeSpend(
                 0,
@@ -147,7 +148,7 @@ describe("VeilDAO", function () {
 
         it("should allow governors to vote on proposals", async function () {
             const client = await hre.cofhe.createClientWithBatteries(nonGovernor);
-            const spendEncrypted = await client.encryptInputs([{ type: "uint32", value: 5000n }]).execute();
+            const spendEncrypted = await client.encryptInputs([Encryptable.uint32(5000n)]).execute();
             await veildao.connect(nonGovernor).proposeSpend(0, recipient.address, spendEncrypted[0], "Test proposal");
 
             // Governor 1 votes yes
@@ -165,7 +166,7 @@ describe("VeilDAO", function () {
 
         it("should reject double voting", async function () {
             const client = await hre.cofhe.createClientWithBatteries(nonGovernor);
-            const spendEncrypted = await client.encryptInputs([{ type: "uint32", value: 5000n }]).execute();
+            const spendEncrypted = await client.encryptInputs([Encryptable.uint32(5000n)]).execute();
             await veildao.connect(nonGovernor).proposeSpend(0, recipient.address, spendEncrypted[0], "Test proposal");
 
             await veildao.connect(governor1).voteOnProposal(0, true);
@@ -176,7 +177,7 @@ describe("VeilDAO", function () {
 
         it("should reject non-governor voting", async function () {
             const client = await hre.cofhe.createClientWithBatteries(nonGovernor);
-            const spendEncrypted = await client.encryptInputs([{ type: "uint32", value: 5000n }]).execute();
+            const spendEncrypted = await client.encryptInputs([Encryptable.uint32(5000n)]).execute();
             await veildao.connect(nonGovernor).proposeSpend(0, recipient.address, spendEncrypted[0], "Test proposal");
 
             await expect(
@@ -186,7 +187,7 @@ describe("VeilDAO", function () {
 
         it("should allow execution of approved proposals", async function () {
             const client = await hre.cofhe.createClientWithBatteries(nonGovernor);
-            const spendEncrypted = await client.encryptInputs([{ type: "uint32", value: 5000n }]).execute();
+            const spendEncrypted = await client.encryptInputs([Encryptable.uint32(5000n)]).execute();
             await veildao.connect(nonGovernor).proposeSpend(0, recipient.address, spendEncrypted[0], "Test proposal");
 
             // Approve with threshold votes
@@ -202,7 +203,7 @@ describe("VeilDAO", function () {
 
         it("should reject execution of non-approved proposals", async function () {
             const client = await hre.cofhe.createClientWithBatteries(nonGovernor);
-            const spendEncrypted = await client.encryptInputs([{ type: "uint32", value: 5000n }]).execute();
+            const spendEncrypted = await client.encryptInputs([Encryptable.uint32(5000n)]).execute();
             await veildao.connect(nonGovernor).proposeSpend(0, recipient.address, spendEncrypted[0], "Test proposal");
 
             await expect(
@@ -226,11 +227,12 @@ describe("VeilDAO", function () {
     describe("Access Control", function () {
         it("should only allow governors to view budgets", async function () {
             const client = await hre.cofhe.createClientWithBatteries(governor1);
-            const encrypted = await client.encryptInputs([{ type: "uint32", value: 10000n }]).execute();
+            const encrypted = await client.encryptInputs([Encryptable.uint32(10000n)]).execute();
             await veildao.connect(governor1).allocateBudget(0, encrypted[0]);
 
             // Governor can view
-            await expect(veildao.connect(governor1).viewBudget(0)).to.not.be.reverted;
+            const budget = await veildao.connect(governor1).viewBudget(0);
+            expect(budget).to.not.be.undefined;
 
             // Non-governor cannot view
             await expect(

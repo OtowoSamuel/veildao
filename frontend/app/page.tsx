@@ -1,7 +1,16 @@
 "use client";
 
 import { useWallet } from "@/lib/wallet";
-import { CATEGORY_NAMES, CATEGORY_ICONS, CATEGORY_COLORS } from "@/lib/contract";
+import { CATEGORY_NAMES, CATEGORY_COLORS } from "@/lib/contract";
+import { Lock, Coins, ClipboardList, Users, Cpu, ShieldCheck, Activity, CheckCircle, Zap, Megaphone, Settings, Microscope, Handshake, Network, Scale, CheckSquare } from "lucide-react";
+
+const BUDGET_ICONS = [
+    <Zap key="1" size={20} />,
+    <Megaphone key="2" size={20} />,
+    <Settings key="3" size={20} />,
+    <Microscope key="4" size={20} />,
+    <Handshake key="5" size={20} />
+];
 
 export default function DashboardPage() {
     const { isConnected, isGovernor, connect } = useWallet();
@@ -9,7 +18,7 @@ export default function DashboardPage() {
     if (!isConnected) {
         return (
             <div className="connect-screen">
-                <div className="connect-icon">🔒</div>
+                <div className="connect-icon"><Lock size={48} /></div>
                 <h1 className="connect-title">Welcome to VeilDAO</h1>
                 <p className="connect-desc">
                     The first privacy-preserving DAO treasury protocol. Encrypted budgets,
@@ -21,13 +30,13 @@ export default function DashboardPage() {
                 </button>
                 <div style={{ marginTop: "2rem", display: "flex", gap: "2rem" }}>
                     <div className="fhe-indicator">
-                        <span className="fhe-lock">🔐</span> Fhenix CoFHE
+                        <span className="fhe-lock"><ShieldCheck size={16} /></span> Fhenix CoFHE
                     </div>
                     <div className="fhe-indicator">
-                        <span className="fhe-lock">⛓️</span> Arbitrum Sepolia
+                        <span className="fhe-lock"><Network size={16} /></span> Arbitrum Sepolia
                     </div>
                     <div className="fhe-indicator">
-                        <span className="fhe-lock">🛡️</span> Privacy by Design
+                        <span className="fhe-lock"><ShieldCheck size={16} /></span> Privacy by Design
                     </div>
                 </div>
             </div>
@@ -46,10 +55,10 @@ export default function DashboardPage() {
             {/* Stats */}
             <div className="stats-grid">
                 <div className="stat-card">
-                    <span className="stat-icon">💰</span>
+                    <span className="stat-icon"><Coins size={28} /></span>
                     <div className="stat-label">Total Treasury</div>
                     <div className="stat-value">
-                        <span className="badge badge-encrypted">🔒 Encrypted</span>
+                        <span className="badge badge-encrypted"><Lock size={12} /> Encrypted</span>
                     </div>
                     {isGovernor && (
                         <div style={{ marginTop: "0.5rem", fontSize: "0.75rem", color: "var(--text-muted)" }}>
@@ -59,19 +68,19 @@ export default function DashboardPage() {
                 </div>
 
                 <div className="stat-card">
-                    <span className="stat-icon">📋</span>
+                    <span className="stat-icon"><ClipboardList size={28} /></span>
                     <div className="stat-label">Active Proposals</div>
                     <div className="stat-value" style={{ color: "var(--warning)" }}>0</div>
                 </div>
 
                 <div className="stat-card">
-                    <span className="stat-icon">👥</span>
+                    <span className="stat-icon"><Users size={28} /></span>
                     <div className="stat-label">Governors</div>
                     <div className="stat-value" style={{ color: "var(--accent-bright)" }}>—</div>
                 </div>
 
                 <div className="stat-card">
-                    <span className="stat-icon">🔐</span>
+                    <span className="stat-icon"><Cpu size={28} /></span>
                     <div className="stat-label">FHE Status</div>
                     <div className="stat-value" style={{ color: "var(--success)", fontSize: "1.25rem" }}>
                         Active
@@ -87,7 +96,7 @@ export default function DashboardPage() {
                 <div className="card-header">
                     <h2 className="card-title">Budget Categories</h2>
                     <span className="fhe-indicator">
-                        <span className="fhe-lock">🔐</span> All values encrypted via FHE
+                        <span className="fhe-lock"><ShieldCheck size={14} /></span> All values encrypted via FHE
                     </span>
                 </div>
                 <div className="card-body">
@@ -95,14 +104,14 @@ export default function DashboardPage() {
                         {CATEGORY_NAMES.map((name, i) => (
                             <div className="budget-card" key={name}>
                                 <div className="budget-header">
-                                    <div className="budget-icon" style={{ background: `${CATEGORY_COLORS[i]}20` }}>
-                                        {CATEGORY_ICONS[i]}
+                                    <div className="budget-icon" style={{ background: `${CATEGORY_COLORS[i]}20`, color: CATEGORY_COLORS[i] }}>
+                                        {BUDGET_ICONS[i]}
                                     </div>
                                     <div>
                                         <div className="budget-name">{name}</div>
                                         <div className="budget-amount">
                                             <span className="badge badge-encrypted" style={{ fontSize: "0.65rem" }}>
-                                                🔒 Encrypted
+                                                <Lock size={10} /> Encrypted
                                             </span>
                                         </div>
                                     </div>
@@ -130,13 +139,13 @@ export default function DashboardPage() {
                 <div className="card-body">
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.5rem" }}>
                         {[
-                            { icon: "🔐", title: "Encrypt", desc: "Budget amounts are encrypted client-side using FHE before being stored on-chain" },
-                            { icon: "⚖️", title: "Compare", desc: "Spend proposals are verified against budgets using encrypted comparisons (FHE.lte)" },
-                            { icon: "🗳️", title: "Vote", desc: "Governors vote on proposals. Threshold votes required for approval" },
-                            { icon: "✅", title: "Execute", desc: "Approved spends deduct from encrypted budgets without revealing values" },
+                            { icon: <Lock size={32} color="var(--accent-bright)" />, title: "Encrypt", desc: "Budget amounts are encrypted client-side using FHE before being stored on-chain" },
+                            { icon: <Scale size={32} color="var(--accent-bright)" />, title: "Compare", desc: "Spend proposals are verified against budgets using encrypted comparisons (FHE.lte)" },
+                            { icon: <CheckSquare size={32} color="var(--accent-bright)" />, title: "Vote", desc: "Governors vote on proposals. Threshold votes required for approval" },
+                            { icon: <CheckCircle size={32} color="var(--accent-bright)" />, title: "Execute", desc: "Approved spends deduct from encrypted budgets without revealing values" },
                         ].map((step) => (
                             <div key={step.title} style={{ textAlign: "center", padding: "1rem" }}>
-                                <div style={{ fontSize: "2rem", marginBottom: "0.75rem" }}>{step.icon}</div>
+                                <div style={{ marginBottom: "0.75rem", display: "flex", justifyContent: "center" }}>{step.icon}</div>
                                 <div style={{ fontWeight: 600, marginBottom: "0.5rem" }}>{step.title}</div>
                                 <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{step.desc}</div>
                             </div>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useWallet } from "@/lib/wallet";
+import { Lock, ShieldCheck } from "lucide-react";
 
 export default function Navbar() {
     const { isConnected, address, isGovernor, connect, disconnect } = useWallet();
@@ -19,10 +20,10 @@ export default function Navbar() {
         <nav className="nav">
             <div className="nav-inner">
                 <Link href="/" className="nav-logo">
-                    <div className="nav-logo-icon">🔒</div>
+                    <div className="nav-logo-icon"><Lock size={18} /></div>
                     <span>VeilDAO</span>
                     <span className="fhe-indicator">
-                        <span className="fhe-lock">🔐</span> FHE Encrypted
+                        <span className="fhe-lock"><ShieldCheck size={14} /></span> FHE Encrypted
                     </span>
                 </Link>
 

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useWallet } from "@/lib/wallet";
+import { Users, Target, ShieldCheck, Eye, Vote, Zap, BarChart2, Lock } from "lucide-react";
 
 // Demo governors for UI showcase
 const DEMO_GOVERNORS = [
@@ -32,7 +33,7 @@ export default function GovernorsPage() {
     if (!isConnected) {
         return (
             <div className="connect-screen">
-                <div className="connect-icon">👥</div>
+                <div className="connect-icon" style={{ display: 'flex', justifyContent: 'center' }}><Users size={48} color="var(--primary-light)" /></div>
                 <h1 className="connect-title">Governor Management</h1>
                 <p className="connect-desc">Connect your wallet to view and manage DAO governors.</p>
                 <button className="btn btn-primary" onClick={connect}>Connect Wallet</button>
@@ -59,21 +60,21 @@ export default function GovernorsPage() {
             {/* Stats */}
             <div className="stats-grid">
                 <div className="stat-card">
-                    <span className="stat-icon">👥</span>
+                    <span className="stat-icon"><Users size={28} /></span>
                     <div className="stat-label">Active Governors</div>
                     <div className="stat-value" style={{ color: "var(--accent-bright)" }}>
                         {DEMO_GOVERNORS.length}
                     </div>
                 </div>
                 <div className="stat-card">
-                    <span className="stat-icon">🎯</span>
+                    <span className="stat-icon"><Target size={28} /></span>
                     <div className="stat-label">Voting Threshold</div>
                     <div className="stat-value" style={{ color: "var(--success)" }}>
                         2 of {DEMO_GOVERNORS.length}
                     </div>
                 </div>
                 <div className="stat-card">
-                    <span className="stat-icon">🔐</span>
+                    <span className="stat-icon"><ShieldCheck size={28} /></span>
                     <div className="stat-label">Your Role</div>
                     <div className="stat-value" style={{ fontSize: "1.25rem", color: isGovernor ? "var(--accent-bright)" : "var(--text-muted)" }}>
                         {isGovernor ? "Governor" : "Member"}
@@ -86,7 +87,7 @@ export default function GovernorsPage() {
                 <div className="card-header">
                     <h2 className="card-title">Active Governors</h2>
                     <span className="fhe-indicator">
-                        <span className="fhe-lock">🔐</span> Can decrypt encrypted values
+                        <span className="fhe-lock"><Lock size={14} /></span> Can decrypt encrypted values
                     </span>
                 </div>
                 <div className="table-wrap">
@@ -157,10 +158,10 @@ export default function GovernorsPage() {
                 <div className="card-body">
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.5rem" }}>
                         {[
-                            { icon: "👁️", title: "View Encrypted Data", desc: "Decrypt budget amounts and proposal values via permits" },
-                            { icon: "🗳️", title: "Vote on Proposals", desc: "Approve or reject spend proposals. Threshold votes required" },
-                            { icon: "⚡", title: "Execute Spends", desc: "Execute approved proposals with FHE budget enforcement" },
-                            { icon: "📊", title: "Allocate Budgets", desc: "Assign encrypted budget amounts to treasury categories" },
+                            { icon: <Eye size={32} color="var(--accent-bright)" />, title: "View Encrypted Data", desc: "Decrypt budget amounts and proposal values via permits" },
+                            { icon: <Vote size={32} color="var(--accent-bright)" />, title: "Vote on Proposals", desc: "Approve or reject spend proposals. Threshold votes required" },
+                            { icon: <Zap size={32} color="var(--accent-bright)" />, title: "Execute Spends", desc: "Execute approved proposals with FHE budget enforcement" },
+                            { icon: <BarChart2 size={32} color="var(--accent-bright)" />, title: "Allocate Budgets", desc: "Assign encrypted budget amounts to treasury categories" },
                         ].map((perm) => (
                             <div key={perm.title} style={{
                                 padding: "1.25rem",
@@ -168,7 +169,7 @@ export default function GovernorsPage() {
                                 borderRadius: "var(--radius-sm)",
                                 border: "1px solid var(--border)",
                             }}>
-                                <div style={{ fontSize: "1.5rem", marginBottom: "0.75rem" }}>{perm.icon}</div>
+                                <div style={{ marginBottom: "0.75rem", display: "flex", justifyContent: "flex-start" }}>{perm.icon}</div>
                                 <div style={{ fontWeight: 600, fontSize: "0.9rem", marginBottom: "0.4rem" }}>{perm.title}</div>
                                 <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{perm.desc}</div>
                             </div>

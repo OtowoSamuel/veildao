@@ -2,7 +2,16 @@
 
 import { useState } from "react";
 import { useWallet } from "@/lib/wallet";
-import { CATEGORY_NAMES, CATEGORY_ICONS, PROPOSAL_STATUS, PROPOSAL_STATUS_COLORS } from "@/lib/contract";
+import { CATEGORY_NAMES, PROPOSAL_STATUS, PROPOSAL_STATUS_COLORS } from "@/lib/contract";
+import { Vote, ClipboardList, Hourglass, CheckCircle, Zap, ShieldCheck, Lock, Megaphone, Settings, Microscope, Handshake } from "lucide-react";
+
+const BUDGET_ICONS = [
+    <Zap key="1" size={20} />,
+    <Megaphone key="2" size={20} />,
+    <Settings key="3" size={20} />,
+    <Microscope key="4" size={20} />,
+    <Handshake key="5" size={20} />
+];
 
 interface MockProposal {
     id: number;
@@ -92,7 +101,7 @@ export default function ProposalsPage() {
     if (!isConnected) {
         return (
             <div className="connect-screen">
-                <div className="connect-icon">🗳️</div>
+                <div className="connect-icon" style={{ display: 'flex', justifyContent: 'center' }}><Vote size={48} color="var(--primary-light)" /></div>
                 <h1 className="connect-title">Proposals</h1>
                 <p className="connect-desc">Connect your wallet to view and create spend proposals.</p>
                 <button className="btn btn-primary" onClick={connect}>Connect Wallet</button>
@@ -124,26 +133,26 @@ export default function ProposalsPage() {
             {/* Stats */}
             <div className="stats-grid">
                 <div className="stat-card">
-                    <span className="stat-icon">📋</span>
+                    <span className="stat-icon"><ClipboardList size={28} /></span>
                     <div className="stat-label">Total Proposals</div>
                     <div className="stat-value">{DEMO_PROPOSALS.length}</div>
                 </div>
                 <div className="stat-card">
-                    <span className="stat-icon">⏳</span>
+                    <span className="stat-icon"><Hourglass size={28} /></span>
                     <div className="stat-label">Pending</div>
                     <div className="stat-value" style={{ color: "var(--warning)" }}>
                         {DEMO_PROPOSALS.filter(p => p.status === 0).length}
                     </div>
                 </div>
                 <div className="stat-card">
-                    <span className="stat-icon">✅</span>
+                    <span className="stat-icon"><CheckCircle size={28} /></span>
                     <div className="stat-label">Approved</div>
                     <div className="stat-value" style={{ color: "var(--success)" }}>
                         {DEMO_PROPOSALS.filter(p => p.status === 1).length}
                     </div>
                 </div>
                 <div className="stat-card">
-                    <span className="stat-icon">⚡</span>
+                    <span className="stat-icon"><Zap size={28} /></span>
                     <div className="stat-label">Executed</div>
                     <div className="stat-value" style={{ color: "var(--accent-bright)" }}>
                         {DEMO_PROPOSALS.filter(p => p.status === 3).length}
@@ -156,7 +165,7 @@ export default function ProposalsPage() {
                 <div className="card-header">
                     <h2 className="card-title">All Proposals</h2>
                     <span className="fhe-indicator">
-                        <span className="fhe-lock">🔐</span> Amounts are FHE encrypted
+                        <span className="fhe-lock"><ShieldCheck size={14} /></span> Amounts are FHE encrypted
                     </span>
                 </div>
                 <div className="table-wrap">
@@ -178,12 +187,14 @@ export default function ProposalsPage() {
                                     <td style={{ fontFamily: "monospace", fontWeight: 600 }}>#{proposal.id}</td>
                                     <td>
                                         <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                                            {CATEGORY_ICONS[proposal.category]} {CATEGORY_NAMES[proposal.category]}
+                                            {BUDGET_ICONS[proposal.category]} {CATEGORY_NAMES[proposal.category]}
                                         </span>
                                     </td>
                                     <td style={{ maxWidth: "300px" }}>{proposal.description}</td>
                                     <td>
-                                        <span className="badge badge-encrypted">🔒 Encrypted</span>
+                                        <span className="badge badge-encrypted" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                            <Lock size={10} /> Encrypted
+                                        </span>
                                     </td>
                                     <td>
                                         <span style={{ color: "var(--success)" }}>✓ {proposal.votesFor}</span>
@@ -229,7 +240,7 @@ export default function ProposalsPage() {
                             <label className="form-label">Category</label>
                             <select className="form-select" value={category} onChange={(e) => setCategory(Number(e.target.value))}>
                                 {CATEGORY_NAMES.map((name, i) => (
-                                    <option key={i} value={i}>{CATEGORY_ICONS[i]} {name}</option>
+                                    <option key={i} value={i}>{name}</option>
                                 ))}
                             </select>
                         </div>
@@ -245,7 +256,7 @@ export default function ProposalsPage() {
                         </div>
 
                         <div className="form-group">
-                            <label className="form-label">Amount (in wei) 🔐</label>
+                            <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>Amount (in wei) <Lock size={14} color="var(--warning)" /></label>
                             <input
                                 className="form-input"
                                 type="number"

@@ -2,7 +2,16 @@
 
 import { useState } from "react";
 import { useWallet } from "@/lib/wallet";
-import { CATEGORY_NAMES, CATEGORY_ICONS, CATEGORY_COLORS } from "@/lib/contract";
+import { CATEGORY_NAMES, CATEGORY_COLORS } from "@/lib/contract";
+import { BarChart2, Lock, ShieldCheck, Zap, Megaphone, Settings, Microscope, Handshake } from "lucide-react";
+
+const BUDGET_ICONS = [
+    <Zap key="1" size={20} />,
+    <Megaphone key="2" size={20} />,
+    <Settings key="3" size={20} />,
+    <Microscope key="4" size={20} />,
+    <Handshake key="5" size={20} />
+];
 
 export default function BudgetPage() {
     const { isConnected, isGovernor, connect, contract } = useWallet();
@@ -36,7 +45,7 @@ export default function BudgetPage() {
     if (!isConnected) {
         return (
             <div className="connect-screen">
-                <div className="connect-icon">📊</div>
+                <div className="connect-icon" style={{ display: 'flex', justifyContent: 'center' }}><BarChart2 size={48} color="var(--primary-light)" /></div>
                 <h1 className="connect-title">Budget Management</h1>
                 <p className="connect-desc">Connect your wallet to view and manage encrypted budgets.</p>
                 <button className="btn btn-primary" onClick={connect}>Connect Wallet</button>
@@ -67,19 +76,19 @@ export default function BudgetPage() {
                         onClick={() => setSelectedCategory(i)}
                     >
                         <div className="budget-header">
-                            <div className="budget-icon" style={{ background: `${CATEGORY_COLORS[i]}20` }}>
-                                {CATEGORY_ICONS[i]}
+                            <div className="budget-icon" style={{ background: `${CATEGORY_COLORS[i]}20`, color: CATEGORY_COLORS[i] }}>
+                                {BUDGET_ICONS[i]}
                             </div>
                             <div>
                                 <div className="budget-name">{name}</div>
                                 <div className="budget-amount">
                                     {isGovernor ? (
                                         <span className="badge badge-encrypted" style={{ fontSize: "0.65rem" }}>
-                                            🔒 Governor: Decryptable
+                                            <Lock size={10} /> Governor: Decryptable
                                         </span>
                                     ) : (
                                         <span className="badge badge-encrypted" style={{ fontSize: "0.65rem" }}>
-                                            🔒 Encrypted
+                                            <Lock size={10} /> Encrypted
                                         </span>
                                     )}
                                 </div>
@@ -102,11 +111,11 @@ export default function BudgetPage() {
             {isGovernor && (
                 <div className="card">
                     <div className="card-header">
-                        <h2 className="card-title">
-                            Allocate Budget — {CATEGORY_ICONS[selectedCategory]} {CATEGORY_NAMES[selectedCategory]}
+                        <h2 className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            Allocate Budget — <span style={{ color: CATEGORY_COLORS[selectedCategory] }}>{BUDGET_ICONS[selectedCategory]}</span> {CATEGORY_NAMES[selectedCategory]}
                         </h2>
                         <span className="fhe-indicator">
-                            <span className="fhe-lock">🔐</span> Client-side encryption
+                            <span className="fhe-lock"><ShieldCheck size={14} /></span> Client-side encryption
                         </span>
                     </div>
                     <div className="card-body">
@@ -120,14 +129,14 @@ export default function BudgetPage() {
                                 >
                                     {CATEGORY_NAMES.map((name, i) => (
                                         <option key={i} value={i}>
-                                            {CATEGORY_ICONS[i]} {name}
+                                            {CATEGORY_NAMES[i]}
                                         </option>
                                     ))}
                                 </select>
                             </div>
 
                             <div className="form-group">
-                                <label className="form-label">Amount (in wei)</label>
+                                <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>Amount (in wei) <Lock size={14} color="var(--warning)" /></label>
                                 <input
                                     type="number"
                                     className="form-input"
@@ -135,9 +144,9 @@ export default function BudgetPage() {
                                     value={amount}
                                     onChange={(e) => setAmount(e.target.value)}
                                 />
-                                <div style={{ marginTop: "0.5rem", fontSize: "0.75rem", color: "var(--text-muted)" }}>
-                                    🔐 This value will be encrypted using FHE before being stored on-chain.
-                                    Nobody — not even validators — can see the actual amount.
+                                <div style={{ marginTop: "0.5rem", fontSize: "0.75rem", color: "var(--text-muted)", display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
+                                    <ShieldCheck size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
+                                    <span>This value will be encrypted using FHE before being stored on-chain. Nobody — not even validators — can see the actual amount.</span>
                                 </div>
                             </div>
 
@@ -183,7 +192,7 @@ export default function BudgetPage() {
             {!isGovernor && (
                 <div className="card">
                     <div className="empty-state">
-                        <div className="empty-state-icon">🔒</div>
+                        <div className="empty-state-icon" style={{ display: 'flex', justifyContent: 'center' }}><Lock size={48} color="var(--text-muted)" /></div>
                         <div className="empty-state-text">Governor Access Required</div>
                         <div className="empty-state-hint">
                             Only governors can allocate budgets. Contact a DAO governor to request access.

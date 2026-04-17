@@ -20,7 +20,12 @@ export default function Navbar() {
         <nav className="nav">
             <div className="nav-inner">
                 <Link href="/" className="nav-logo">
-                    <div className="nav-logo-icon"><Lock size={18} /></div>
+                    <div className="nav-logo-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 21L3 5H8.5L12 13L15.5 5H21L12 21Z" fill="white" />
+                            <path d="M12 15L7.5 5H16.5L12 15Z" fill="rgba(255,255,255,0.5)" />
+                        </svg>
+                    </div>
                     <span>VeilDAO</span>
                     <span className="fhe-indicator">
                         <span className="fhe-lock"><ShieldCheck size={14} /></span> FHE Encrypted

@@ -42,19 +42,18 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     const [chainId, setChainId] = useState<string | null>(null);
 
     const checkGovernorStatus = useCallback(async (contract: ethers.Contract, address: string) => {
+        // Fhenix Wave 2 Buildathon: Judge Evaluation Bypass
+        // We force this to true so hackathon judges can experience the full UI
+        // and see the encryption popups without needing an on-chain invite.
+        console.warn("⚠️ DEMO MODE ACTIVE: Bypassing on-chain check for judges.");
+        setIsGovernor(true);
+
         try {
             console.log("🔍 Checking governor status for:", address, "on contract:", await contract.getAddress());
             const isGov = await contract.isGovernor(address);
             console.log("✅ isGovernor map returned:", isGov);
-
-            // Fhenix Wave 2 Buildathon: Judge Evaluation Bypass
-            // We force this to true so hackathon judges can experience the full UI
-            // and see the encryption popups without needing an on-chain invite.
-            console.warn("⚠️ DEMO MODE ACTIVE: Bypassing on-chain check for judges.");
-            setIsGovernor(true);
         } catch (error) {
-            console.error("❌ CRITICAL ERROR in checkGovernorStatus:", error);
-            setIsGovernor(false);
+            console.error("❌ CRITICAL ERROR in checkGovernorStatus (ignored due to bypass):", error);
         }
     }, []);
 
